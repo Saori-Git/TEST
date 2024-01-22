@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>観光情報</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        img:hover {
+            transform: scale(1.2);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .modal-content {
+            margin: 10% auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+            user-drag: none;
+            user-select: none;
+        }
+        .close {
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>観光地: 例の観光地</h1>
+    
+    <p>この観光地は素晴らしい場所で、多くの観光客が訪れます。自然の美しさや歴史的な背景があり、観光する価値があります。</p>
+
+    <!-- 画像をクリックすると拡大表示するためのモーダル -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImg" onwheel="zoomImage(event)">
+    </div>
+
+    <!-- クリック時にJavaScriptでモーダル表示 -->
+    <img src="https://www.jr-odekake.net/navi/nishinavi/assets/img/top/mv_pc.jpg" alt="観光地の画像" onclick="openModal(this)">
+
+    <h2>観光地の特徴</h2>
+    
+    <ul>
+        <li>美しい自然景観</li>
+        <li>歴史的な建造物や遺産</li>
+        <li>地元の美食や伝統的なアクティビティ</li>
+    </ul>
+
+    <h2>アクセス情報</h2>
+    
+    <p>観光地へのアクセスは便利で、公共交通機関や駐車場も完備されています。</p>
+
+    <h2>営業時間と料金</h2>
+    
+    <p>営業時間: 9:00 - 18:00</p>
+    <p>入場料金: 大人 1,000円 / 子供 500円</p>
+
+    <footer>
+        <p>&copy; 2024 観光情報サイト</p>
+    </footer>
+
+    <script>
+        function openModal(imgElement) {
+            var modal = document.getElementById("myModal");
+            var modalImg = document.getElementById("modalImg");
+            modal.style.display = "block";
+            modalImg.src = imgElement.src;
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        function zoomImage(event) {
+            event.preventDefault();
+
+            var modalImg = document.getElementById("modalImg");
+            var scale = modalImg.clientWidth / modalImg.naturalWidth;
+
+            scale += event.deltaY * -0.01;
+
+            // 設定された最小と最大の拡大率を制限
+            scale = Math.min(Math.max(.125, scale), 4);
+
+            modalImg.style.transform = "scale(" + scale + ")";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像をクリックしてモーダル表示</title>
+    <style>
+        /* スタイルは必要に応じて調整してください */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        img {
+            cursor: pointer;
+            max-width: 100%;
+            height: auto;
+        }
+        #modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        #modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            cursor: zoom-in;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 画像をクリックしたときに呼び出されるJavaScript関数を設定 -->
+<img src="https://www.jr-odekake.net/railroad/kankoutrain/assets/img/top/mv-thumbnail5.jpg" alt="画像" onclick="openModal(this.src)">
+
+<!-- モーダル用のオーバーレイとコンテンツ -->
+<div id="modal-overlay" onclick="closeModal()">
+    <img id="modal-content" src="" alt="拡大表示" onclick="zoomImage()">
+</div>
+
+<script>
+    // 画像をモーダルで開く関数
+    function openModal(imageSrc) {
+        // モーダルのオーバーレイとコンテンツ取得
+        var overlay = document.getElementById('modal-overlay');
+        var modalContent = document.getElementById('modal-content');
+
+        // クリックされた画像をモーダルに表示
+        modalContent.src = imageSrc;
+
+        // モーダルを表示
+        overlay.style.display = 'flex';
+    }
+
+    // モーダルを閉じる関数
+    function closeModal() {
+        // モーダルのオーバーレイ取得
+        var overlay = document.getElementById('modal-overlay');
+
+        // モーダルを非表示
+        overlay.style.display = 'none';
+    }
+
+    // 画像を拡大縮小する関数
+    function zoomImage() {
+        // モーダルのコンテンツ取得
+        var modalContent = document.getElementById('modal-content');
+
+        // 画像を拡大する
+        if (modalContent.style.cursor === 'zoom-in') {
+            modalContent.style.cursor = 'zoom-out';
+            modalContent.style.maxWidth = 'none';
+            modalContent.style.maxHeight = 'none';
+        } else {
+            // 画像を元のサイズに戻す
+            modalContent.style.cursor = 'zoom-in';
+            modalContent.style.maxWidth = '90%';
+            modalContent.style.maxHeight = '90%';
+        }
+    }
+</script>
+
+</body>
+</html>
